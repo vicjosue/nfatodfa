@@ -1,2 +1,3 @@
 # nfatodfa
  
+ npm start

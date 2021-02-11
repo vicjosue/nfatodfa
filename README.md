@@ -4,25 +4,27 @@ This proyect was made with the knowlegde acquired in the class of compilers and 
 
 ### Instalation
 
-To run this app you will need to install React and run "npm start"
+If you want to use it right away, this project is deployed in github pages at https://vicsenpai.github.io/nfatodfa/
+
+To run this app locally you will need to install React and run "npm start"
 
 ### Example
 
 To convert this NFA:
 
-![alt text](https://github.com/vicsenpai/nfatodfa/blob/main/public/exampleNFA.jpg?raw=true)
+![](./public/exampleNFA.jpg)
 
 You need to complete the form also don't forget to complete the start state and select your final state:
 
-![alt text](https://github.com/vicsenpai/nfatodfa/blob/main/public/formExample.jpg?raw=true)
+![](./public/formExample.jpg)
 
 Once completed, check on "convert" button and will appear a table, this table is solution table:
 
-![alt text](https://github.com/vicsenpai/nfatodfa/blob/main/public/solutionExample.jpg?raw=true)
+![](./public/solutionExample.jpg)
 
 Drawn as a DFA will appear something like this one:
 
-![alt text](https://github.com/vicsenpai/nfatodfa/blob/main/public/solutionDFA.jpg?raw=true)
+![](./public/solutionDFA.jpg)
 
 For this example a have used a tool maded by Evan Wallace to show you the drawn NFA and DFA, here is the link to his page:
 http://madebyevan.com/fsm/

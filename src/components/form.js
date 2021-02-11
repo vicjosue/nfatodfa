@@ -9,59 +9,68 @@ class Form extends React.Component {
 
     addState() {
         this.props.updateState({
-            states: [...this.props.formValues.states, {state_name: "", transitions: [{transition:"", destiny_state_name: ""}] }]
+            nfa: [...this.props.formValues.nfa, {state_name: "", final_state:false, transitions: [{transition:"", destiny_state_name: ""}] }]
         });
     }
 
-    addStateTransition(i,el) {
-        let newState = [...this.props.formValues.states]
-        el.transitions = el.transitions.concat([{transition:"", destiny_state_name: ""}]);
-        newState[i] = el
+    addStateTransition(i,state) {
+        let newState = [...this.props.formValues.nfa]
+        state.transitions = state.transitions.concat([{transition:"", destiny_state_name: ""}]);
+        newState[i] = state
 
         this.props.updateState(
         {
-            states: newState
+            nfa: newState
         });
     }
 
-    removeStateTransition(i, index,el){
-       let newState = [...this.props.formValues.states];
-        if(newState[i].transitions.length>1){
-            el.transitions.splice(index, 1);
-            newState[i] = el
+    removeStateTransition(i, index,state){
+       let newState = [...this.props.formValues.nfa];
+            state.transitions.splice(index, 1);
+            newState[i] = state
 
             this.props.updateState(
                 {
-                    states: newState
+                    nfa: newState
                 });
-            
-        } else {
-            alert('A state has to have at least 1 transition');
-        }
     }
     
 
     removeState(i) {
-        let newState = [...this.props.formValues.states];
+        let newState = [...this.props.formValues.nfa];
         newState.splice(i, 1);
         this.props.updateState(
             {
-                states: newState
+                nfa: newState
             });
     }
 
+    isFinalState(i,state){
+        let newState = [...this.props.formValues.nfa]
+        state.final_state=!state.final_state;
+        newState[i] = state
+
+        this.props.updateState(
+        {
+            nfa: newState
+        });
+    }
+
     createUI() {
-        return this.props.formValues.states.map((el, i) => (
+        return this.props.formValues.nfa.map((state, i) => (
             <div key={i}>
-                <input placeholder="State" name="state_name" value={el.state_name || ''} onChange={this.handleNameChange.bind(this, i)} />
-                {el.transitions.map((item,index) => (
+                <input placeholder="State" name="state_name" value={state.state_name || ''} onChange={this.handleNameChange.bind(this, i)} />
+                {state.transitions.map((item,index) => (
                     <li key={index}> 
                         <input placeholder="transition" name="transition" value={item.transition || ''} onChange={this.handleStateTransitionChange.bind(this, i,index)} />
                         <input placeholder="destiny state name" name="destiny_state_name" value={item.destiny_state_name || ''} onChange={this.handleStateTransitionChange.bind(this, i,index)} />
-                        <input type='button' value='remove state transition' onClick={this.removeStateTransition.bind(this,i, index, el)} />
+                        <input type='button' value='remove state transition' onClick={this.removeStateTransition.bind(this,i, index, state)} />
                     </li>
                 ) )}
-                <input type='button' value='add state transition' onClick={this.addStateTransition.bind(this, i, el)} />
+
+                <input type="checkbox" value={state.final_state} defaultChecked={state.final_state} onChange={this.isFinalState.bind(this, i,state)} />
+                
+                <input type='button' value='add state transition' onClick={this.addStateTransition.bind(this, i, state)} />
                 <input type='button' value='remove state' onClick={this.removeState.bind(this, i)} />
             </div>
         ))
@@ -69,21 +78,21 @@ class Form extends React.Component {
     
     handleStateTransitionChange(i,index,e){
         const { name, value } = e.target;
-        let newState = [...this.props.formValues.states];
+        let newState = [...this.props.formValues.nfa];
         newState[i].transitions[index] = { ...newState[i].transitions[index], [name]: value };
         this.props.updateState(
             {
-                states: newState
+                nfa: newState
             });
     }
 
     handleNameChange(i, e) {
         const { name, value } = e.target;
-        let newState = [...this.props.formValues.states];
+        let newState = [...this.props.formValues.nfa];
         newState[i] = { ...newState[i], [name]: value };
         this.props.updateState(
             {
-                states: newState
+                nfa: newState
             });
     }
 
@@ -102,22 +111,6 @@ class Form extends React.Component {
         this.props.updateState({transitions: this.props.formValues.transitions.concat("")});
     }
 
-    handleTransitionChange(i,e){
-        const { value } = e.target;
-        let newTransitions = [...this.props.formValues.transitions];
-        newTransitions[i] = value
-        this.props.updateState(
-            {
-                transitions: newTransitions
-            });
-    }
-
-    removeTransition(i){
-        let newTransitions = [...this.props.formValues.transitions];
-        newTransitions.splice(i, 1);
-        this.props.updateState({transitions: newTransitions});
-    }
-
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
@@ -125,15 +118,7 @@ class Form extends React.Component {
 
                 <input placeholder="start state" name="initialState" value={ this.props.formValues.initialState} onChange={this.handleChange.bind(this)} />
 
-                {this.props.formValues.transitions.map((el, i) => (
-                    <div key={i}>
-                        <input placeholder="transition" name="transition" value={el || ''} onChange={this.handleTransitionChange.bind(this, i)} />
-                        <input type='button' value='remove transition' onClick={this.removeTransition.bind(this, i)} />
-                    </div>
-                ))}
-                <input type='button' value='add transition' onClick={this.addTransition.bind(this)} />
                 <input type='button' value='add new state' onClick={this.addState.bind(this)} />
-                <input type="submit" value="Submit" />
             </form>
         );
     }

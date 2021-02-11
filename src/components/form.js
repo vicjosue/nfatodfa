@@ -1,5 +1,4 @@
 import React from 'react';
-
 class Form extends React.Component {
     constructor(props) {
         super(props);
@@ -59,17 +58,15 @@ class Form extends React.Component {
     createUI() {
         return this.props.formValues.nfa.map((state, i) => (
             <div key={i}>
-                <input placeholder="State" name="state_name" value={state.state_name || ''} onChange={this.handleNameChange.bind(this, i)} />
+                <input className="state" placeholder="State" name="state_name" value={state.state_name || ''} onChange={this.handleNameChange.bind(this, i)} />
+                <label className="finalState"><input type="checkbox" value={state.final_state} defaultChecked={state.final_state} onChange={this.isFinalState.bind(this, i,state)}/>Final state </label>
                 {state.transitions.map((item,index) => (
                     <li key={index}> 
-                        <input placeholder="transition" name="transition" value={item.transition || ''} onChange={this.handleStateTransitionChange.bind(this, i,index)} />
-                        <input placeholder="destiny state name" name="destiny_state_name" value={item.destiny_state_name || ''} onChange={this.handleStateTransitionChange.bind(this, i,index)} />
+                        <input className="transition" placeholder="transition" name="transition" value={item.transition || ''} onChange={this.handleStateTransitionChange.bind(this, i,index)} />
+                        <input className="transition" placeholder="destiny state name" name="destiny_state_name" value={item.destiny_state_name || ''} onChange={this.handleStateTransitionChange.bind(this, i,index)} />
                         <input type='button' value='remove state transition' onClick={this.removeStateTransition.bind(this,i, index, state)} />
                     </li>
                 ) )}
-
-                <input type="checkbox" value={state.final_state} defaultChecked={state.final_state} onChange={this.isFinalState.bind(this, i,state)} />
-                
                 <input type='button' value='add state transition' onClick={this.addStateTransition.bind(this, i, state)} />
                 <input type='button' value='remove state' onClick={this.removeState.bind(this, i)} />
             </div>
@@ -116,7 +113,7 @@ class Form extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 {this.createUI()}
 
-                <input placeholder="start state" name="initialState" value={ this.props.formValues.initialState} onChange={this.handleChange.bind(this)} />
+                <input className="startState" placeholder="start state" name="initialState" value={ this.props.formValues.initialState} onChange={this.handleChange.bind(this)} />
 
                 <input type='button' value='add new state' onClick={this.addState.bind(this)} />
             </form>

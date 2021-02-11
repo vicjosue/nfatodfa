@@ -1,0 +1,59 @@
+.state {
+    width: 50px;
+    background-color: white;
+    text-align: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
+.startState{
+    width: 100px;
+    background-color: white;
+    text-align: center;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 4px;
+}
+
+input:focus {
+    background-color: lightgreen;
+  }
+
+.transition {
+    background-color: white;
+    text-align: center;
+    width: 120px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 4px;
+    margin: 4px 2px;
+}
+
+.finalState {
+    color:black;
+    font-size: large;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    color: white;
+    
+    padding: 1px 2px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+body {
+    background-color: #13aa0541;
+}
+
+table, th, td {
+    border: 1px solid black;
+    
+  }
+
+  table {
+    width: 100px;
+  }
+  
+  td {
+    height: 30px;
+    text-align: center;
+  }

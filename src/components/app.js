@@ -7,9 +7,8 @@ import Table from './table'
 class App extends React.Component {
     constructor(props) {
         super(props)
-        //[{ state_name: "", transitions: [{ transition: "", destiny_state_name: "" }] }]
        this.state = {
-            nfa: [{ state_name: "",final_state: false, transitions: [{ transition: "", destiny_state_name: "" }] }],
+            nfa: [{ state_name: "","final_state":false, transitions: [{ transition: "", destiny_state_name: "" }] }],
             transitions: [],
             initialState: "",
             dfa:[],
@@ -42,6 +41,7 @@ class App extends React.Component {
                 {
                 this.state.showResult?
                 <div>
+                    <h3>NOTE: The ones in bold font are final states and the empty symbol is a trash state or dead state </h3>
                     <Table 
                         data={this.state} 
                     ></Table>
@@ -49,6 +49,7 @@ class App extends React.Component {
                 </div>
                 :
                 <div>
+                    <h3>NOTE: If you want to add a epsilon transition you can use the lowecase letter "e" as the transition</h3>
                     <Form
                         updateState={this.updateState.bind(this)}
                         formValues={this.state}

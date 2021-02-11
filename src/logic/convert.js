@@ -1,5 +1,6 @@
 import get_reachable_states from "./get_reachable_states"
-import listEqual from "./listEqual"
+import get_epsilon_reachable_states from './get_epsilon_reachable_states';
+import list_equal from "./list_equal"
 
 export default function convert(nfa) {
     let q_zero = nfa.initialState;
@@ -65,7 +66,7 @@ export default function convert(nfa) {
     let actual_State;
     let new_state;
 
-    let queue=[[q_zero]];
+    let queue=[get_epsilon_reachable_states(q_zero,data)];
     while(queue.length!==0){
         actual_State=queue[0];// [c d]
         queue.shift(); //delete first element
@@ -85,7 +86,7 @@ export default function convert(nfa) {
                 destiny_state: temp_reachable_states,
                 transition: t
             });
-            if (!existsInList(queue, temp_reachable_states) && !existsInList(searched, temp_reachable_states))
+            if (!existsInList(queue, temp_reachable_states) && !existsInList(searched, temp_reachable_states) && temp_reachable_states.length!==0)
                 queue.push(temp_reachable_states); 
         });
         dfa.push(new_state);
@@ -101,7 +102,7 @@ export default function convert(nfa) {
 
 function existsInList(queue, state) {
     for (let i = 0; i < queue.length; i++) {
-        if (listEqual(queue[i], state))
+        if (list_equal(queue[i], state))
             return true;
     }
     return false;

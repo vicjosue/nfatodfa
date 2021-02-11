@@ -1,3 +1,6 @@
+
+import get_epsilon_reachable_states from './get_epsilon_reachable_states';
+import move_through_transition from './move_through_transition';
 /*
 Given a state, get all reachable states by a transition.
 
@@ -15,7 +18,7 @@ export default function get_reachable_states(state, data_states, transition) {
     let epsilon_states = get_epsilon_reachable_states(state, data_states);
     
     let moved_states = epsilon_states
-                        .map(s=>move(s,data_states,transition)) // move through transition
+                        .map(s=>move_through_transition(s,data_states,transition))
                         .filter(item=>item.length!==0) // eliminate empty ones
     // get epsilons transitions of each state resulting in an array of 3 dimensions
     let epsilon_moved_states = moved_states
@@ -25,50 +28,3 @@ export default function get_reachable_states(state, data_states, transition) {
     return epsilon_moved_states
 }
 
-/*
-Move a state through a transition
-
-Parameters:
-    State: String
-    data_states: A list of structures where is a transition and a destiny state, example:
-                        {transition:"a",destiny_state_name:"2"}
-    Transition: String 
-
-Returns:
-    Return a list of all states conected by the transition
-*/
-function move(state,data_states,transition){
-    let transitions = data_states.find(s=>s.state_name===state).transitions //get all transitions of each state
-
-            .filter(t=>t.transition=== transition); // filter them by the transition we need
-    transitions = transitions.map(item=>item.destiny_state_name)
-    return transitions
-}
-
-/*
-Given a state, get all reachable states by a epsilon
-
-Parameters:
-    State: String
-    data_states: Structure where is a transition and a destiny state, example:
-                        {transition:"a",destiny_state_name:"2"}
-
-Returns:
-    Return a list of all states conected by epsilon
-*/
-
-function get_epsilon_reachable_states(state, data_states, searchedStates=[]) {
-    
-    let epsilon_reachable_states = [state]; // It's implicit that all states has a epsilon
-    // transition to themselves
-    searchedStates = searchedStates.concat(state);
-
-    data_states.find(s => s.state_name === state).transitions.forEach(t => {
-        if (t.transition === "e" && !(searchedStates.includes(t.destiny_state_name))){ 
-            epsilon_reachable_states = epsilon_reachable_states
-                    .concat(get_epsilon_reachable_states(t.destiny_state_name, data_states,searchedStates))
-        }
-    });
-
-    return epsilon_reachable_states;
-}

@@ -1,12 +1,12 @@
 # NFA to DFA automata conversion with epsilon closure
  
-This proyect was made with the knowlegde acquired in the class of compilers and interpreters in the university
+This proyect was made in react js with the knowlegde acquired in the course of compilers and interpreters in the university
 
 ### Instalation
 
 If you want to use it right away, this project is deployed in github pages at https://vicsenpai.github.io/nfatodfa/
 
-To run this app locally you will need to install React and run "npm start"
+To run this app locally you will need to install React, clone this repository and run "npm start"
 
 ### Example
 

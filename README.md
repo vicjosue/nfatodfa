@@ -4,7 +4,7 @@ This proyect was made in react js with the knowlegde acquired in the course of c
 
 ### Instalation
 
-If you want to use it right away, this project is deployed in github pages at https://vicsenpai.github.io/nfatodfa/
+If you want to use it right away, this project is deployed in github pages at https://vicjosue.github.io/nfatodfa/
 
 To run this app locally you will need to install React, clone this repository and run "npm start"
 
